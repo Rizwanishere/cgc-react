@@ -1,3 +1,5 @@
+import ProductItem from './ProductItem';
+
 function ProductList(){
     const items= [
         {id:1,brand:'Samsung',model:'S22',price:700,image:'https://t.ly/4sTbh'},
@@ -26,16 +28,8 @@ function ProductList(){
                         <th>Image</th>
                     </tr>
                 </thead>
-                <tbody style={{textAlign:"center"}}>{
-                    items.map(item => <tr>
-                        <td>{item.id}</td>
-                        <td>{item.brand}</td>
-                        <td>{item.model}</td>
-                        <td>{item.price}</td>
-                        <td><img src={item.image} width="100" height="100"/></td>
-                        </tr>
-                    )
-                }
+                <tbody style={{textAlign:"center"}}>
+                    { items.map(it => <ProductItem item={it}/>) }
                 </tbody>
             </table>
         </div>
