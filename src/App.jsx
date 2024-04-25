@@ -2,9 +2,11 @@ import React from 'react';
 import Name from './Name';
 import ProductList from './ProductList';
 import Skills from './Skills';
+import Counter from './Counter';
 
 const App = () => {
     return(<div>
+        <Counter/>
         <ProductList/>
         <Skills/>
         <Name value="Rizwan" age="20"/>
