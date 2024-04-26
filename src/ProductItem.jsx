@@ -1,6 +1,6 @@
 function ProductItem({item}) {
     return(
-        <tr>
+        <tr className="bg-white border-b dark:border-gray-700">
             <td>{item.id}</td>
             <td>{item.brand}</td>
             <td>{item.model}</td>

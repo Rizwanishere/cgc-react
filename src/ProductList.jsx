@@ -9,7 +9,7 @@ function ProductList(){
     
     return (
         <div>
-            <h1>Products</h1>
+            <h1 className='mb-4 mt-4 font-bold lg:text-4xl text-black'>Products</h1>
             {/* {
                 items.map(item => <div>
                     <h3>{item.brand} {item.model}</h3>
@@ -18,9 +18,9 @@ function ProductList(){
                     </div>)
             } */}
 
-            <table className="centered-table" border={1} width="100%">
-                <thead>
-                    <tr>
+            <table className="text-center text-black-500" border={1} width="100%">
+                <thead class="uppercase">
+                    <tr class="border dark:border-gray-700">
                         <th>Id</th>
                         <th>Brand</th>
                         <th>Model</th>
@@ -28,7 +28,7 @@ function ProductList(){
                         <th>Image</th>
                     </tr>
                 </thead>
-                <tbody style={{textAlign:"center"}}>
+                <tbody>
                     { items.map(it => <ProductItem item={it}/>) }
                 </tbody>
             </table>
