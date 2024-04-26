@@ -1,14 +1,15 @@
 import React from 'react';
 import Name from './Name';
-import ProductList from './ProductList';
 import Skills from './Skills';
 import Counter from './Counter';
 import Header from './Header';
+import UserList from './User/UserList';
 import Footer from './Footer';
 
 const App = () => {
     return(<div>
         <Header/>
+        <UserList/>
         <Footer/>
 
         {/* <Counter/> */}
