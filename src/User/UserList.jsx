@@ -14,7 +14,7 @@ class UserList extends Component{
     constructor(){
         super();
         
-        axios.get('https://api.github.com/users1') //Forced-Error
+        axios.get('https://api.github.com/users')
         .then(res => this.setState({ users: res.data }))
         .catch(() => this.setState({ hasError: true }));
     };

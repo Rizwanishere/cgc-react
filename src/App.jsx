@@ -4,12 +4,14 @@ import Skills from './Skills';
 import Counter from './Counter';
 import Header from './Header';
 import UserList from './User/UserList';
+import ProductList from './Product/ProductList'
 import Footer from './Footer';
 
 const App = () => {
     return(<div>
         <Header/>
-        <UserList/>
+        {/* <UserList/> */}
+        <ProductList/>
         <Footer/>
 
         {/* <Counter/> */}
