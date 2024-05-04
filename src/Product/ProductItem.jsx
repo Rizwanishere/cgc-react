@@ -7,20 +7,20 @@ function Price({ product }) {
     const discountedAmount = (product.price * product.discount) / 100;
 
     const salePrice = product.price - discountedAmount;
-    return salePrice;
+    return Math.round(salePrice);
   }
 
   return (
     <>
       <ShouldRender when={product.discount > 0}>
         <div className="flex items-center justify-between line-through">
-          <span className="text-gray-900">${product.price}</span>
+          <span className="text-gray-900">₹{product.price}</span>
         </div>
       </ShouldRender>
 
       <div>
         <span className="text-xl font-bold text-gray-900">
-          ${calculatePrice()}
+          ₹{calculatePrice()}
         </span>
       </div>
     </>

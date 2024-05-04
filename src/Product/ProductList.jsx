@@ -15,10 +15,10 @@ class ProductList extends Component {
   constructor() {
     super();
     axios
-      .get("https://cgc-node-b1.onrender.com/api/v1/products")
+      .get("http://localhost:3000/products")
       .then((res) => this.setState({ products: res.data.data }))
       .catch((err) => this.setState({ hasError: true }))
-      .finally(() => this.setState({loading: false}));
+      .finally(() => this.setState({ loading: false }));
   }
 
   render() {
@@ -27,8 +27,11 @@ class ProductList extends Component {
         <div>
           <h1 className="text-2xl font-semibold text-gray-500 m-2 flex">
             Products
-            <ShouldRender when = {this.state.loading}>
-             <Loader /> 
+            <ShouldRender when={this.state.loading}>
+              <Loader />
+            </ShouldRender>
+            <ShouldRender when={this.state.hasError}>
+              <Error />
             </ShouldRender>
           </h1>
         </div>
