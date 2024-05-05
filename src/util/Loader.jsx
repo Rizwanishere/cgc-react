@@ -1,6 +1,6 @@
 function Loader() {
   return (
-    <div role="status" className="flex ml-60 p-80">
+    <div role="status" className="flex absolute top-1/2 left-1/2 bg-white border border-gray-400 w-25 rounded">
       <svg
         aria-hidden="true"
         className="flex w-9 h-9 text-gray-200 animate-spin dark:text-gray-600 fill-orange-600 "

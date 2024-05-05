@@ -60,12 +60,6 @@ class ProductList extends Component {
         <div>
           <h1 className="text-2xl font-semibold text-gray-500 m-2 flex p-1">
             Products
-            <ShouldRender when={this.state.loading}>
-              <Loader />
-            </ShouldRender>
-            <ShouldRender when={this.state.hasError}>
-              <Error />
-            </ShouldRender>
             <button
               onClick={this.onPrev}
               style={{ backgroundColor: this.state.page === 1 ? "gray" : '' }}
@@ -111,6 +105,12 @@ class ProductList extends Component {
                 />
               </svg>
             </button>
+            <ShouldRender when={this.state.loading}>
+              <Loader />
+            </ShouldRender>
+            <ShouldRender when={this.state.hasError}>
+              <Error />
+            </ShouldRender>
           </h1>
         </div>
 
