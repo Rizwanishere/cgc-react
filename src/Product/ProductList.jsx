@@ -11,7 +11,8 @@ class ProductList extends Component {
     hasError: false,
     loading: true,
     page: 1,
-    metadata: {}
+    metadata: {},
+    search: "",
   };
 
   onPrev = () => {
@@ -36,12 +37,16 @@ class ProductList extends Component {
     super();
   }
 
-  fetchData() {
-    const url = `http://localhost:3000/products/page/${this.state.page}/size/9`;
+  fetchData = () => {
+    const url = `http://localhost:3000/products/page/${this.state.page}/size/9?search=${this.state.search}`;
     axios.get(url)
       .then((res) => this.setState({ products: res.data.data, metadata: res.data.metadata }))
       .catch((err) => this.setState({ hasError: true }))
       .finally(() => this.setState({ loading: false }));
+  }
+
+  shouldComponentUpdate(a, b) {
+    return true;
   }
 
   componentDidMount() {
@@ -54,11 +59,23 @@ class ProductList extends Component {
     }
   }
 
+  onTextChange = (evt) => {
+    this.setState({ search: evt.target.value });
+  }
+
+  onSearch = () => {
+    this.fetchData();
+  }
+
+  onEnter = (evt) => {
+    if (evt.keyCode === 13) this.fetchData();
+  }
+
   render() {
     return (
       <div>
         <div className="flex m-2">
-          <h1 className="flex text-3xl font-semibold text-gray-500 mt-2 p-1">
+          <h1 className="flex text-2xl font-semibold text-gray-500 mt-2 p-1">
             Products
           </h1>
           <button
@@ -109,6 +126,51 @@ class ProductList extends Component {
           <ShouldRender when={this.state.loading}>
             <Loader />
           </ShouldRender>
+
+          <form className="mt-1">
+            <label
+              for="default-search"
+              className="sr-only mb-2 text-sm font-medium"
+            >
+              Search
+            </label>
+            <div className="relative">
+              <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
+                <svg
+                  class="h-4 w-4"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                  />
+                </svg>
+              </div>
+              <input
+                onKeyUp={this.onEnter}
+                onChange={this.onTextChange}
+                type="search"
+                id="default-search"
+                className="block w-full rounded-lg border p-4 ps-10 text-sm text-black focus:ring-orange-600"
+                placeholder="Search Brand.."
+                required
+              />
+              <button
+                onClick={this.onSearch}
+                type="submit"
+                className="absolute bottom-2.5 end-2.5 rounded-lg bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-gray-400"
+              >
+                Search
+              </button>
+            </div>
+          </form>
+
           <ShouldRender when={this.state.hasError}>
             <Error />
           </ShouldRender>

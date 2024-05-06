@@ -17,7 +17,7 @@ function Loader() {
           fill="currentFill"
         />
       </svg>
-      <span>Loading...</span>
+      <span className="mt-1">Loading...</span>
     </div>
   );
 }
