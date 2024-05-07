@@ -6,14 +6,20 @@ import ProductItem from "./ProductItem";
 import Loader from "../util/Loader";
 
 class ProductList extends Component {
-  state = {
-    products: [],
-    hasError: false,
-    loading: true,
-    page: 1,
-    metadata: {},
-    search: "",
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      products: [],
+      hasError: false,
+      loading: true,
+      page: 1,
+      metadata: {},
+      search: "",
+      sort: null,
+      direction: null,
+    };
+  }
 
   onPrev = () => {
     if (this.state.page > 1) {
@@ -33,12 +39,8 @@ class ProductList extends Component {
     }
   };
 
-  constructor() {
-    super();
-  }
-
   fetchData = () => {
-    const url = `http://localhost:3000/products/page/${this.state.page}/size/9?search=${this.state.search}`;
+    const url = `http://localhost:3000/products/page/${this.state.page}/size/9?search=${this.state.search}&sort=${this.state.sort}&direction=${this.state.direction}`;
     axios.get(url)
       .then((res) => this.setState({ products: res.data.data, metadata: res.data.metadata }))
       .catch((err) => this.setState({ hasError: true }))
@@ -53,8 +55,12 @@ class ProductList extends Component {
     this.fetchData();
   }
 
-  componentDidUpdate(a, b) {
-    if (b.page != this.state.page) {
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.page != this.state.page ||
+      prevState.sort != this.state.sort ||
+      prevState.direction != this.state.direction
+    ) {
       this.fetchData();
     }
   }
@@ -69,6 +75,13 @@ class ProductList extends Component {
 
   onEnter = (evt) => {
     if (evt.keyCode === 13) this.fetchData();
+  }
+
+  onSortChange = (evt) => {
+    // price:asc
+    const sortStrings = evt.target.value;
+    const tokens = sortStrings.split(":");
+    this.setState({ sort: tokens[0], direction: tokens[1] });
   }
 
   render() {
@@ -123,9 +136,6 @@ class ProductList extends Component {
               />
             </svg>
           </button>
-          <ShouldRender when={this.state.loading}>
-            <Loader />
-          </ShouldRender>
 
           <div className="mt-1">
             <label
@@ -171,10 +181,27 @@ class ProductList extends Component {
             </div>
           </div>
 
-          <ShouldRender when={this.state.hasError}>
-            <Error />
-          </ShouldRender>
+          <div>
+            <select
+              onChange={this.onSortChange}
+              className="h-12 ml-3 mt-2 border border-orange-500 rounded"
+            >
+              <option>Sort</option>
+              <option value="price:asc">Price Low to High</option>
+              <option value="price:desc">Price High to Low</option>
+              <option value="discount:asc">Discount Low to High</option>
+              <option value="discount:desc">Discount High to Low</option>
+            </select>
+          </div>
         </div>
+
+        <ShouldRender when={this.state.loading}>
+          <Loader />
+        </ShouldRender>
+
+        <ShouldRender when={this.state.hasError}>
+          <Error />
+        </ShouldRender>
 
         <div className="grid md:grid-cols-3 sm:grid-cols-2">
           {this.state.products.map((product) => (
