@@ -127,7 +127,7 @@ class ProductList extends Component {
             <Loader />
           </ShouldRender>
 
-          <form className="mt-1">
+          <div className="mt-1">
             <label
               for="default-search"
               className="sr-only mb-2 text-sm font-medium"
@@ -169,7 +169,7 @@ class ProductList extends Component {
                 Search
               </button>
             </div>
-          </form>
+          </div>
 
           <ShouldRender when={this.state.hasError}>
             <Error />
