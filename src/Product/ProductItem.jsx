@@ -1,6 +1,8 @@
 import React from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import NoProductImg from "../Assets/no-image.jpg"
 import ShouldRender from "../util/ShouldRender";
 
 function Price({ product }) {
@@ -104,12 +106,19 @@ function Actions({ product }) {
 }
 
 function ProductItem({ product }) {
+
+  const [src, setSrc] = useState(null);
+
+  useEffect(()=>{
+    setSrc(product.image || NoProductImg)
+  })
+
   return (
     <div className="m-2 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
       <Link to={"/products/" + product._id}>
         <img
           className="p-8 rounded-t-lg"
-          src={product.image}
+          src={src}
           alt="product image"
         />
 
