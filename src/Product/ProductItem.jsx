@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import { Link } from "react-router-dom";
 import ShouldRender from "../util/ShouldRender";
 
 function Price({ product }) {
@@ -105,27 +106,25 @@ function Actions({ product }) {
 function ProductItem({ product }) {
   return (
     <div className="m-2 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
-      <a href="#">
+      <Link to={"/products/" + product._id}>
         <img
           className="p-8 rounded-t-lg"
           src={product.image}
           alt="product image"
         />
-      </a>
 
-      <div className="px-5 pb-5">
-        <a href="#">
+        <div className="px-5 pb-5">
           <h5 className="text-xl font-semibold tracking-tight text-gray-900">
             {product.brand} {product.model}
           </h5>
-        </a>
 
-        <Price product={product} />
+          <Price product={product} />
 
-        <Actions product={product} />
+          <Actions product={product} />
 
-        <span>{moment(product.updatedDate).fromNow()}</span>
-      </div>
+          <span>Updated {moment(product.updatedDate).fromNow()}</span>
+        </div>
+      </Link>
     </div>
   );
 }

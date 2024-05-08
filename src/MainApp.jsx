@@ -6,6 +6,7 @@ import Contact from "./Contact";
 import NotFound from "./NotFound";
 import UserList from "./User/UserList";
 import ProductList from "./Product/ProductList";
+import ProductDetail from "./Product/ProductDetail";
 
 function MainApp() {
   return (
@@ -15,6 +16,7 @@ function MainApp() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/products" element={<ProductList />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/users" element={<UserList />} />
 
         <Route path="*" element={<NotFound />} />
