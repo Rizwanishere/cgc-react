@@ -1,31 +1,31 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import ProductItem from "./ProductItem";
 import ShouldRender from "../util/ShouldRender";
 import axios from "axios";
 
-class ProductDetail extends React.Component {
-  state = {
-    product: null,
-  };
+function ProductDetail() {
+  const [product, setProduct] = useState(null);
+  const params = useParams();
 
-  componentDidMount() {
-    const id = "6633be6eb04edf45cc560044"; //To make it dynamic, Do function migration
+  useEffect(() => {
+    const id = params.id;
     const url = `http://localhost:3000/products/${id}`;
     axios
       .get(url)
-      .then((res) => this.setState({ product: res.data }))
+      .then((res) => setProduct(res.data))
       .catch((err) => console.log(err));
-  }
+  },[]);
 
-  render() {
-    return (
-      <div className="flex justify-center">
-        <ShouldRender when={this.state.product}>
-          <ProductItem product={this.state.product} />
-        </ShouldRender>
-      </div>
-    );
-  }
+  return (
+    <div className="flex justify-center">
+      <ShouldRender when={product}>
+        <ProductItem product={product} />
+      </ShouldRender>
+    </div>
+  );
+  
 }
 
 export default ProductDetail;
