@@ -1,5 +1,5 @@
 import React from "react";
-
+import moment from "moment";
 import ShouldRender from "../util/ShouldRender";
 
 function Price({ product }) {
@@ -123,6 +123,8 @@ function ProductItem({ product }) {
         <Price product={product} />
 
         <Actions product={product} />
+
+        <span>{moment(product.updatedDate).fromNow()}</span>
       </div>
     </div>
   );
