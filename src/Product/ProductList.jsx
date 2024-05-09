@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import Error from "../util/Error";
 import ShouldRender from "../util/ShouldRender";
 import ProductItem from "./ProductItem";
@@ -22,17 +23,18 @@ function ProductList() {
     if (page < metadata.pages) setPage(page + 1);
   };
 
-  const fetchData = () => {
+  const fetchData = async () => {
     const url = `http://localhost:3000/products/page/${page}/size/9?search=${search}&sort=${sort}&direction=${direction}`;
-    axios
-      .get(url)
-      .then((res) => {
-        setProducts(res.data.data);
-        setMetadata(res.data.metadata);
-        setError(false);
-      })
-      .catch((err) => setError(true))
-      .finally(() => setLoading(false));
+    try {
+      const res = await axios.get(url);
+      setProducts(res.data.data);
+      setMetadata(res.data.metadata);
+      setError(false);
+    } catch (err) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -165,6 +167,13 @@ function ProductList() {
             <option value="discount:desc">Discount High to Low</option>
           </select>
         </div>
+
+        <Link
+          to="/products/new"
+          className="bg-orange-500 hover:bg-orange-600 m-2 p-2 pt-3 rounded ml-4 text-white focus:ring-4 focus:ring-gray-400"
+        >
+          Add Product
+        </Link>
       </div>
 
       <ShouldRender when={loading}>
