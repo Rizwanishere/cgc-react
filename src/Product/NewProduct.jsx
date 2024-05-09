@@ -67,6 +67,9 @@ function NewProduct() {
           <option value="Google">Google</option>
           <option value="Oneplus">Oneplus</option>
         </select>
+        <ShouldRender when={!product.brand}>
+          <div className="text-sm text-red-500 m-1">Brand is required</div>
+        </ShouldRender>
       </div>
 
       <div className="mb-8">
@@ -79,6 +82,15 @@ function NewProduct() {
           placeholder="model"
           type="text"
         />
+        <ShouldRender when={!product.model}>
+          <div className="text-sm text-red-500 m-1">Model is required</div>
+        </ShouldRender>
+        <ShouldRender when={product.model && product.model.length < 1}>
+          <div className="text-sm text-red-500 m-1">Min 1 char</div>
+        </ShouldRender>
+        <ShouldRender when={product.model && product.model.length > 20}>
+          <div className="text-sm text-red-500 m-1">Max 20 chars</div>
+        </ShouldRender>
       </div>
 
       <div className="mb-8">
@@ -91,6 +103,9 @@ function NewProduct() {
           placeholder="price"
           type="text"
         />
+        <ShouldRender when={!product.price}>
+          <div className="text-sm text-red-500 m-1">Price is required</div>
+        </ShouldRender>
       </div>
 
       <div className="mb-8">
@@ -103,6 +118,9 @@ function NewProduct() {
           placeholder="discount"
           type="text"
         />
+        <ShouldRender when={!product.discount}>
+          <div className="text-sm text-red-500 m-1">Discount is required</div>
+        </ShouldRender>
       </div>
 
       <div className="mb-8">
@@ -123,10 +141,16 @@ function NewProduct() {
           onChange={onInputChange}
         />
         <label className="py-1 m-2">No</label>
+        <ShouldRender when={!product.inStock}>
+          <div className="text-sm text-red-500 m-1">
+            Field input is required
+          </div>
+        </ShouldRender>
       </div>
 
       <div className="mb-8">
         <button
+          disabled={!product.brand || !product.model || !product.price}
           onClick={onSaveBtn}
           className="bg-orange-500 hover:bg-orange-600 rounded px-6 py-1 focus:ring-4 focus:ring-gray-400"
         >
