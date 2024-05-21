@@ -11,6 +11,7 @@ function NewProduct() {
     price: "",
     discount: "",
     inStock: false,
+    image: null,
   });
   const [hasError, setError] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -20,12 +21,22 @@ function NewProduct() {
     setProduct(newState);
   };
 
+  const onFileChange = (evt) => {
+    const newState = { ...product, image: evt.target.files[0] };
+    setProduct(newState);
+  };
+
   const navigate = useNavigate();
 
   const onSaveBtn = async () => {
     try {
+      const fd = new FormData();
+
+      for (let key in product) {
+        fd.append(key, product[key]);
+      }
       const url = "http://localhost:3000/products";
-      await axios.post(url, product);
+      await axios.post(url, fd);
       setSuccess(true);
       setProduct({
         brand: "",
@@ -33,8 +44,11 @@ function NewProduct() {
         price: "",
         discount: "",
         inStock: false,
+        image: null,
       });
-      //   navigate("/products"); // Redirects to products page
+      setTimeout(() => {
+        navigate("/products");
+      }, 1000);
     } catch {
       setError(true);
     }
@@ -146,6 +160,10 @@ function NewProduct() {
             Field input is required
           </div>
         </ShouldRender>
+      </div>
+
+      <div className="mb-8">
+        <input type="file" onChange={onFileChange} />
       </div>
 
       <div className="mb-8">
