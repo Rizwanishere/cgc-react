@@ -5,6 +5,7 @@ import About from "./About";
 import Contact from "./Contact";
 import NotFound from "./NotFound";
 import UserList from "./User/UserList";
+import Login from "./User/Login";
 import ProductList from "./Product/ProductList";
 import ProductDetail from "./Product/ProductDetail";
 import NewProduct from "./Product/NewProduct";
@@ -19,7 +20,7 @@ function MainApp() {
         <Route path="/products" element={<ProductList />} />
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/products/new" element={<NewProduct/>}></Route>
-        <Route path="/users" element={<UserList />} />
+        <Route path="/login" element={<Login />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
