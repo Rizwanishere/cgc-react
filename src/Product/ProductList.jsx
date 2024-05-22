@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Error from "../util/Error";
 import ShouldRender from "../util/ShouldRender";
 import ProductItem from "./ProductItem";
@@ -16,6 +16,8 @@ function ProductList() {
   const [sort, setSort] = useState(null);
   const [direction, setDirection] = useState(null);
 
+  const navigate = useNavigate();
+
   const onPrev = () => {
     if (page > 1) setPage(page - 1);
   };
@@ -26,11 +28,19 @@ function ProductList() {
   const fetchData = async () => {
     const url = `http://localhost:3000/products/page/${page}/size/9?search=${search}&sort=${sort}&direction=${direction}`;
     try {
-      const res = await axios.get(url);
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       setProducts(res.data.data);
       setMetadata(res.data.metadata);
       setError(false);
     } catch (err) {
+      if (err.response && err.response.status === 401) {
+        navigate("/login");
+        return;
+      }
       setError(true);
     } finally {
       setLoading(false);

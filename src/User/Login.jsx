@@ -18,7 +18,8 @@ function Login() {
     evt.preventDefault();
     try {
       const url = "http://localhost:3000/users/signin";
-      await axios.post(url, user);
+      const res = await axios.post(url, user);
+      localStorage.setItem("token", res.data.token);
       navigate("/products");
     } catch (error) {
       setError(true);
