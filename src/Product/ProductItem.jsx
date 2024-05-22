@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NoProductImg from "../Assets/no-image.jpg"
 import ShouldRender from "../util/ShouldRender";
+import { MdClose } from "react-icons/md";
+import myAxios from "../util/axios";
+import Error from "../util/Error";
 
 function Price({ product }) {
   function calculatePrice() {
@@ -105,16 +108,34 @@ function Actions({ product }) {
   );
 }
 
-function ProductItem({ product }) {
-
+function ProductItem({ product, onDelete }) {
   const [src, setSrc] = useState(null);
+  const [error, setError] = useState(false);
 
   useEffect(()=>{
     setSrc(product.image || NoProductImg)
   },[product])
 
+  const onDeleteButton = async () => {
+    try {
+      await myAxios().delete(`products/${product._id}`);
+      onDelete(product._id);
+    } catch (error) {
+      setError(true);
+      if (err.response && err.response.status === 403) {
+        console.log("You dont have permission to delete");
+        return;
+      }
+    }
+  };
   return (
     <div className="m-2 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+      <button onClick={onDeleteButton}>
+        <MdClose className="text-red-500 text-3xl" />
+      </button>
+      <ShouldRender when={error}>
+        <Error msg="Only Admins can delete" />
+      </ShouldRender>
       <Link to={"/products/" + product._id}>
         <img
           className="p-8 rounded-t-lg"
