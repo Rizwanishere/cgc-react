@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import myAxios from "../util/axios";
 import { Link, useNavigate } from "react-router-dom";
 import Error from "../util/Error";
 import ShouldRender from "../util/ShouldRender";
@@ -26,13 +26,9 @@ function ProductList() {
   };
 
   const fetchData = async () => {
-    const url = `http://localhost:3000/products/page/${page}/size/9?search=${search}&sort=${sort}&direction=${direction}`;
+    const path = `/products/page/${page}/size/9?search=${search}&sort=${sort}&direction=${direction}`;
     try {
-      const res = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const res = await myAxios().get(path);
       setProducts(res.data.data);
       setMetadata(res.data.metadata);
       setError(false);

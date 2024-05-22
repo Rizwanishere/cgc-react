@@ -1,4 +1,4 @@
-import axios from "axios";
+import myAxios from "../util/axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Error from "../util/Error";
@@ -35,8 +35,8 @@ function NewProduct() {
       for (let key in product) {
         fd.append(key, product[key]);
       }
-      const url = "http://localhost:3000/products";
-      await axios.post(url, fd);
+      const path = "/products";
+      await myAxios().post(url, fd);
       setSuccess(true);
       setProduct({
         brand: "",
@@ -163,6 +163,7 @@ function NewProduct() {
       </div>
 
       <div className="mb-8">
+        <label className="block mb-2">Upload Image</label>
         <input type="file" onChange={onFileChange} />
       </div>
 
