@@ -36,7 +36,7 @@ function NewProduct() {
         fd.append(key, product[key]);
       }
       const path = "/products";
-      await myAxios().post(url, fd);
+      await myAxios().post(path, fd);
       setSuccess(true);
       setProduct({
         brand: "",
