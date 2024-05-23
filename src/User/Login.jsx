@@ -1,13 +1,15 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Error from "../util/Error";
 import ShouldRender from "../util/ShouldRender";
+import UserContext from "../context/UserContext";
 
 function Login() {
   const [user, setUser] = useState({});
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const { setLoggedin } = useContext(UserContext)
 
   const onInputChange = (evt) => {
     const newUser = { ...user, [evt.target.name]: evt.target.value };
@@ -21,6 +23,7 @@ function Login() {
       const res = await axios.post(url, user);
       localStorage.setItem("token", res.data.token);
       navigate("/products");
+      setLoggedin(true);
     } catch (error) {
       setError(true);
     }

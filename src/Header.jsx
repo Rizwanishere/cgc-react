@@ -1,10 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
+import ShouldRender from "./util/ShouldRender";
+import { useContext } from "react";
+import UserContext from "./context/UserContext";
+
 function Header(){
+    const { isLoggedin, setLoggedin } = useContext(UserContext);
+
     const navigate = useNavigate();
 
     const onLogoutButton = () => {
         localStorage.removeItem('token');
-        navigate('/Login')
+        navigate('/Login');
+        setLoggedin(false);
     };
 
     return(
@@ -27,9 +34,11 @@ function Header(){
                         <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                     </svg>
                     </Link></li>
+                    <ShouldRender when={isLoggedin}>
                     <li>
                         <button onClick={onLogoutButton} className="p-1 hover:text-black text-lg mt-3">Logout</button>
                     </li>
+                    </ShouldRender>
                 </ul>
             </nav>
         </header>
