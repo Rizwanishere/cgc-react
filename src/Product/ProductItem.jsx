@@ -120,7 +120,7 @@ function ProductItem({ product, onDelete }) {
     try {
       await myAxios().delete(`products/${product._id}`);
       onDelete(product._id);
-    } catch (error) {
+    } catch (err) {
       setError(true);
       if (err.response && err.response.status === 403) {
         console.log("You dont have permission to delete");
