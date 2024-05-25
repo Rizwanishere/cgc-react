@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProductItem from "./ProductItem";
 import ShouldRender from "../util/ShouldRender";
-import axios from "axios";
+import myAxios from "../util/axios";
 
 function ProductDetail() {
   const [product, setProduct] = useState(null);
@@ -11,9 +11,9 @@ function ProductDetail() {
 
   useEffect(() => {
     const id = params.id;
-    const url = `http://localhost:3000/products/${id}`;
-    axios
-      .get(url)
+    const path = `/products/${id}`;
+    myAxios()
+      .get(path)
       .then((res) => setProduct(res.data))
       .catch((err) => console.log(err));
   },[]);
