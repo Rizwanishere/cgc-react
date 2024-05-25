@@ -39,7 +39,7 @@ function Actions({ product }) {
       <ShouldRender when={product.inStock}>
         <div className="mt-2 flex">
           <a
-            href="#"
+            href=""
             className="flex text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center w-1/3"
           >
             Add to cart
@@ -60,7 +60,7 @@ function Actions({ product }) {
           </a>
 
           <a
-            href="#"
+            href=""
             className="ml-2 flex text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center w-1/3"
           >
             Buy Now
@@ -123,7 +123,6 @@ function ProductItem({ product, onDelete }) {
     } catch (err) {
       setError(true);
       if (err.response && err.response.status === 403) {
-        console.log("You dont have permission to delete");
         return;
       }
     }
@@ -150,11 +149,12 @@ function ProductItem({ product, onDelete }) {
 
           <Price product={product} />
 
-          <Actions product={product} />
-
           <span>Updated {moment(product.updatedDate).fromNow()}</span>
         </div>
       </Link>
+      <div className="px-5 pb-5">
+        <Actions product={product} />
+      </div>
     </div>
   );
 }
