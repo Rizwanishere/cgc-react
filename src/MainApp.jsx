@@ -9,6 +9,7 @@ import Login from "./User/Login";
 import ProductList from "./Product/ProductList";
 import ProductDetail from "./Product/ProductDetail";
 import NewProduct from "./Product/NewProduct";
+import Signup from "./User/Signup";
 
 function MainApp() {
   return (
@@ -21,6 +22,7 @@ function MainApp() {
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/products/new" element={<NewProduct/>}></Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup/>} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
