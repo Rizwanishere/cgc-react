@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Home() {
   return (
     <section className="bg-white">
@@ -23,8 +25,8 @@ function Home() {
             traditional ITSM solutions.Accelerate critical development work,
             eliminate toil, and deploy changes with ease.
           </p>
-          <a
-            href="#"
+          <Link
+            href=""
             className="text-primary-600 inline-flex items-center font-medium"
           >
             Learn more
@@ -40,7 +42,7 @@ function Home() {
                 clipRule="evenodd"
               ></path>
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

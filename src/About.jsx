@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function About() {
   return (
     <section>
@@ -15,13 +17,13 @@ function About() {
               unwavering.
             </p>
             <div className="mt-8">
-              <a
-                href="#"
+              <Link
+                href=""
                 className="text-blue-500 hover:text-blue-600 font-medium"
               >
                 Learn more about us
                 <span className="ml-2">&#8594;</span>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="mt-12 md:mt-0">
