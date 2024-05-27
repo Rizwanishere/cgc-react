@@ -1,15 +1,15 @@
 import axios from "axios";
 
 const getInstance = () => {
-  const host = "https://cgc-nodejs.onrender.com";
-  const headers = {};
-  if (localStorage.getItem("token")) {
-    const token = localStorage.getItem("token");
-    headers.authorization = `Bearer ${token}`;
-  }
+  const baseURL = "https://cgc-nodejs.onrender.com";
+  const token = localStorage.getItem("token");
+
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
   return axios.create({
-    baseURL: host,
-    headers: headers,
+    baseURL,
+    headers,
   });
 };
+
 export default getInstance;
